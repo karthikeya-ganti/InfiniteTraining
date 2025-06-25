@@ -1,0 +1,14 @@
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenge\Code Challenge 1\Code Challenge 1\obj\Debug\Code Challenge 1.csproj.AssemblyReference.cache
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenge\Code Challenge 1\Code Challenge 1\obj\Debug\Code Challenge 1.csproj.CoreCompileInputs.cache
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenge\Code Challenge 1\Code Challenge 1\bin\Debug\Code Challenge 1.exe.config
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenge\Code Challenge 1\Code Challenge 1\bin\Debug\Code Challenge 1.exe
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenge\Code Challenge 1\Code Challenge 1\bin\Debug\Code Challenge 1.pdb
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenge\Code Challenge 1\Code Challenge 1\obj\Debug\Code Challenge 1.exe
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenge\Code Challenge 1\Code Challenge 1\obj\Debug\Code Challenge 1.pdb
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenges\Code Challenge 1\Code Challenge 1\bin\Debug\Code Challenge 1.exe.config
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenges\Code Challenge 1\Code Challenge 1\bin\Debug\Code Challenge 1.exe
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenges\Code Challenge 1\Code Challenge 1\bin\Debug\Code Challenge 1.pdb
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenges\Code Challenge 1\Code Challenge 1\obj\Debug\Code Challenge 1.csproj.AssemblyReference.cache
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenges\Code Challenge 1\Code Challenge 1\obj\Debug\Code Challenge 1.csproj.CoreCompileInputs.cache
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenges\Code Challenge 1\Code Challenge 1\obj\Debug\Code Challenge 1.exe
+C:\Users\karthikeyag\Infinite_Training\CSharp\Code Challenges\Code Challenge 1\Code Challenge 1\obj\Debug\Code Challenge 1.pdb
