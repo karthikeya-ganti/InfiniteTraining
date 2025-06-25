@@ -24,7 +24,7 @@ namespace Code_Challenge_1
             Console.WriteLine($"Result = {word.Remove(position, 1)}");
         }
         //Question 2
-        public static void Question2()
+        public static StringBuilder Question2()
         {
             //2.Write a C# Sharp program to exchange the first and last characters in a given string and return the new string.
             
@@ -37,7 +37,8 @@ namespace Code_Challenge_1
             char first = str[0];
             newstr.Replace(first, last, 0, 1);
             newstr.Replace(last, first, str.Length - 1, 1);
-            Console.WriteLine($"String after Exchanging = {newstr}");
+            //Console.WriteLine($"String after Exchanging = {newstr}");
+            return newstr;
         }
         // Question 3
         public static void Question3()
@@ -72,7 +73,7 @@ namespace Code_Challenge_1
         static void Main(string[] args)
         {
             CodeChallenge1.Question1();
-            CodeChallenge1.Question2();
+            Console.WriteLine($"String after Exchanging = {CodeChallenge1.Question2()}"); 
             CodeChallenge1.Question3();
             Console.ReadKey();
         }
