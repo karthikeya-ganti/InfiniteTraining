@@ -1,0 +1,6 @@
+C:\Users\karthikeyag\Infinite_Training\CSharp\Assignments\Assignment 7\Assignment 7\Calculate_Concession\Calculate_Concession\bin\Debug\Calculate_Concession.dll
+C:\Users\karthikeyag\Infinite_Training\CSharp\Assignments\Assignment 7\Assignment 7\Calculate_Concession\Calculate_Concession\bin\Debug\Calculate_Concession.pdb
+C:\Users\karthikeyag\Infinite_Training\CSharp\Assignments\Assignment 7\Assignment 7\Calculate_Concession\Calculate_Concession\obj\Debug\Calculate_Concession.csproj.AssemblyReference.cache
+C:\Users\karthikeyag\Infinite_Training\CSharp\Assignments\Assignment 7\Assignment 7\Calculate_Concession\Calculate_Concession\obj\Debug\Calculate_Concession.csproj.CoreCompileInputs.cache
+C:\Users\karthikeyag\Infinite_Training\CSharp\Assignments\Assignment 7\Assignment 7\Calculate_Concession\Calculate_Concession\obj\Debug\Calculate_Concession.dll
+C:\Users\karthikeyag\Infinite_Training\CSharp\Assignments\Assignment 7\Assignment 7\Calculate_Concession\Calculate_Concession\obj\Debug\Calculate_Concession.pdb

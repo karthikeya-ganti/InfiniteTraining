@@ -72,9 +72,9 @@ namespace Code_Challenge_1
     {
         static void Main(string[] args)
         {
-            CodeChallenge1.Question1();
+            //CodeChallenge1.Question1();
             Console.WriteLine($"String after Exchanging = {CodeChallenge1.Question2()}"); 
-            CodeChallenge1.Question3();
+            //CodeChallenge1.Question3();
             Console.ReadKey();
         }
     }
