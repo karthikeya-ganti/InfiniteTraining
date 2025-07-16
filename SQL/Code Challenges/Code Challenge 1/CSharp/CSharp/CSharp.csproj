@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C91CA257-E9D2-4A92-9D6C-AC58F94E686A}</ProjectGuid>
+    <ProjectGuid>{0F09DCFA-5E4C-4B19-97B8-162B6BBE01F8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Code_Challenge_3</RootNamespace>
-    <AssemblyName>Code Challenge 3</AssemblyName>
+    <RootNamespace>CSharp</RootNamespace>
+    <AssemblyName>CSharp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,9 +32,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>Code_Challenge_3.Question_3</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,9 +45,6 @@
   <ItemGroup>
     <Compile Include="Question 1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Question 2.cs" />
-    <Compile Include="Question 3.cs" />
-    <Compile Include="Question 4.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,0 +1,7 @@
+C:\Users\karthikeyag\Infinite_Training\SQL\Code Challenges\Code Challenge 1\CSharp\CSharp\bin\Debug\CSharp.exe.config
+C:\Users\karthikeyag\Infinite_Training\SQL\Code Challenges\Code Challenge 1\CSharp\CSharp\bin\Debug\CSharp.exe
+C:\Users\karthikeyag\Infinite_Training\SQL\Code Challenges\Code Challenge 1\CSharp\CSharp\bin\Debug\CSharp.pdb
+C:\Users\karthikeyag\Infinite_Training\SQL\Code Challenges\Code Challenge 1\CSharp\CSharp\obj\Debug\CSharp.csproj.AssemblyReference.cache
+C:\Users\karthikeyag\Infinite_Training\SQL\Code Challenges\Code Challenge 1\CSharp\CSharp\obj\Debug\CSharp.csproj.CoreCompileInputs.cache
+C:\Users\karthikeyag\Infinite_Training\SQL\Code Challenges\Code Challenge 1\CSharp\CSharp\obj\Debug\CSharp.exe
+C:\Users\karthikeyag\Infinite_Training\SQL\Code Challenges\Code Challenge 1\CSharp\CSharp\obj\Debug\CSharp.pdb

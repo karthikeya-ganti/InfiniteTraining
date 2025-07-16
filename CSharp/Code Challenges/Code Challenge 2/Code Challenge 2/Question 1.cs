@@ -88,7 +88,7 @@ namespace Code_Challenge_2
             catch(IncorrectClassException e)
             {
                 Console.WriteLine(e.Message);
-                throw;
+                //throw;
             }
             if (studentclass == 'U' || studentclass == 'u')
             {
@@ -109,6 +109,7 @@ namespace Code_Challenge_2
             else
             {
                 Console.WriteLine("No such Class!");
+                throw new IncorrectClassException("No class");
             }
             Console.ReadKey();
         }
