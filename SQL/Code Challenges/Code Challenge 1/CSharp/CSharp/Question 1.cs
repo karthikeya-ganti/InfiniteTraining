@@ -53,9 +53,7 @@ namespace CSharp
 
             //Query 2
             //b.Display details of all the employee whose location is not Mumbai
-            var employeelocationnotmumbai = from emp in empList
-                                            where emp.City != "Mumbai"
-                                            select emp;
+            var employeelocationnotmumbai = empList.FindAll(e => e.City != "Mumbai");
             Console.WriteLine("\nQuery 2");
             foreach (var emp in employeelocationnotmumbai)
             {
@@ -64,9 +62,7 @@ namespace CSharp
 
             //Query 3
             //c. Display details of all the employee whose title is AsstManager
-            var employeetitleasstmanager = from emp in empList
-                                           where emp.Title == "AsstManager"
-                                           select emp;
+            var employeetitleasstmanager = empList.FindAll(e => e.Title == "AsstManager");
             Console.WriteLine("\nQuery 3");
             foreach (var emp in employeetitleasstmanager)
             {
@@ -75,9 +71,7 @@ namespace CSharp
 
             //Query 4
             //d. Display details of all the employee whose Last Name start with S
-            var employeelastnames = from emp in empList
-                                    where emp.LastName.StartsWith("S")
-                                    select emp;
+            var employeelastnames = empList.FindAll(e => e.LastName.StartsWith("S"));
             Console.WriteLine("\nQuery 4");
             foreach (var emp in employeelastnames)
             {

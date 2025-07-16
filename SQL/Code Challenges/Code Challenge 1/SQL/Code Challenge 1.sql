@@ -127,10 +127,11 @@ where address like '%o%'
 
 --query 5
 --Write a query to display the Date,Total no of customer placed order on same Date
-select o.date 'Date', count(c.id) 'No of Customers'
+select o.date 'Date', count(distinct c.id) 'No of Customers'
 from orders o, customers c
 where o.customer_id = c.id
 group by o.date
+
 
 --query 6
 --Display the Names of the Employee in lower case, whose salary is null
