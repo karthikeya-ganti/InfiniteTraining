@@ -1,0 +1,77 @@
+﻿<!--4. How to make use of animation-delay , and then restart again-->
+﻿
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Animation Delay</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            animation-name: test;
+            animation-duration: 5000ms;
+            position: relative;
+            animation-delay: 2s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes test {
+            0% {
+                background-color: red;
+            }
+
+            25% {
+                background-color: yellow;
+                left: 200px;
+                top: 0px;
+            }
+
+            50% {
+                background-color: blue;
+                left: 200px;
+                top: 200px;
+            }
+
+            75% {
+                background-color: green;
+                top: 200px;
+            }
+
+            100% {
+                background-color: chartreuse;
+            }
+        }
+        button {
+            background-color: transparent;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s;
+            border: none;
+            border-width: 100px;
+            border-radius: 0px;
+            cursor: pointer;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="Restart()">Restart</button>
+        </div>
+    </div>
+    <script>
+        function Restart() {
+            const box = document.getElementById("box");
+            box.style.animation = "none";
+            void box.offsetWidth;
+            box.style.animation = "test 5s 2s forwards";
+        }
+    </script>
+</body>
+</html>
