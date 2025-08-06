@@ -1,0 +1,45 @@
+﻿<!--4. Use and write the correct selector to hide all odd table rows in a table.-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Question 4</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <table id="table">
+        <tr>
+            <td>Row 1</td>
+            <td>Data 1</td>
+        </tr>
+        <tr>
+            <td>Row 2</td>
+            <td>Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 3</td>
+            <td>Data 3</td>
+        </tr>
+        <tr>
+            <td>Row 4</td>
+            <td>Data 4</td>
+        </tr>
+        <tr>
+            <td>Row 5</td>
+            <td>Data 5</td>
+        </tr>
+    </table>
+    <br />
+    <button id="button" onclick="hide()"> Hide Odd Rows </button>
+    <br />
+    <script>
+        $(document).ready(function () {
+            $("#button").click(function () {
+                $("tr:odd").hide();
+            })
+        })
+    </script>
+</body>
+</html>

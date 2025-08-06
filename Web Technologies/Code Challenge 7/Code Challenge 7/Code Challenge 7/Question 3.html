@@ -1,0 +1,26 @@
+﻿<!--3. Write a JavaScript program that creates a button and add a click event listener to log a message when it's clicked.-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Question 3</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="button"> Click Me</button>
+    </div>
+    <script>
+        var button = document.getElementById("button");
+        button.addEventListener("click", function () { console.log("Button was Clicked!!") })
+    </script>
+</body>
+</html>

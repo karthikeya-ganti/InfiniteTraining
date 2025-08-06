@@ -1,0 +1,43 @@
+﻿<!--1. Write a JavaScript program to calculate multiplication and division of two numbers (input from user).-->
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Question 1</title>
+</head>
+<body>
+    <div>
+        1st Number:
+        <input id="1stno" type="text" /><br /><br />
+        2nd Number:
+        <input id="2ndno" type="text" /><br /><br />
+        <button onclick="multiply()">Multiply</button> &nbsp;&nbsp;
+        <button onclick="divide()">Divide</button><br />
+        <p>The Result is: </p>
+        <p id="result"></p>
+    </div>
+    <script>
+        function multiply() {
+            var firstno = document.getElementById("1stno").value;
+            var secondno = document.getElementById("2ndno").value;
+            var multiplied = firstno * secondno;
+            document.getElementById("result").textContent = multiplied;
+        }
+        function divide() {
+            var firstno = document.getElementById("1stno").value;
+            var secondno = document.getElementById("2ndno").value;
+            var divided;
+            if (secondno != 0) {
+                divided = firstno / secondno;
+            }
+            else {
+                divide = "not defined";
+                alert("Cannot divide with zero!");
+            }
+            document.getElementById("result").textContent = divided;
+        }
+    </script>
+</body>
+</html>
