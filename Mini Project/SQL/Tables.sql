@@ -59,11 +59,3 @@ select * from trains
 select * from class
 select * from train_class
 select * from users
-
-drop table cancellations
-drop table bookings
-drop table customers
-drop table train_class
-drop table trains
-drop table class
-drop table users

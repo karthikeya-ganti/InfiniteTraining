@@ -30,6 +30,11 @@ create or alter proc sp_RegisterUser
 	@password varchar(12),
 	@role varchar(8)
 as begin
+	if exists (select 1 from users where username = @username)
+	begin
+		raiserror('Username already exists!',16,1)
+		return
+	end
 	insert into users (username, password, role) 
 	values (@username, @password, @role)
 end
@@ -71,6 +76,12 @@ as begin
 		return
 	end
 
+	if exists (select 1 from customers where customer_name = @name)
+	begin
+		raiserror('Customer already exists.', 16, 1)
+		return
+	end
+
 	insert into customers (user_id, customer_name, phone, email, gender, age) values
 	(@userid, @name, @phone, @email, @gender, @age)
 end
@@ -80,7 +91,6 @@ exec sp_AddCustomer 'karthik', 'Kabali', '1829830', 'kabali@gmail.com', 'male', 
 
 create or alter proc sp_ViewTrains
 as begin
-	--select trains.train_no, trains.train_name, [from], [to], class.class_name, seats_available, price from trains, class, train_class where class.class_id = train_class.class_id and trains.train_no = train_class.train_no
 	select trains.train_no, trains.train_name, [from], [to], class.class_name, seats_available, price, status 
 	from trains 
 	join train_class 
@@ -89,13 +99,30 @@ as begin
 	on train_class.class_id = class.class_id
 end
 
-exec sp_ViewTrains
+exec sp_CustViewTrains
+
+
+create or alter proc sp_CustViewTrains
+as begin
+	select trains.train_no, trains.train_name, [from], [to], class.class_name, seats_available, price
+	from trains 
+	join train_class 
+	on train_class.train_no = trains.train_no 
+	join class
+	on train_class.class_id = class.class_id
+	where train_class.status = 'active'
+end
 
 
 create or alter proc sp_CheckSeatsAvailable
     @train_no int,
     @class_id int
 as begin
+	if not exists (select 1 from train_class where train_no = @train_no and class_id = @class_id)
+	begin
+		raiserror('Train or Class does not Exists!',16,1)
+		return
+	end
     select seats_available from train_class where train_no = @train_no and class_id = @class_id
 end
 
@@ -109,7 +136,14 @@ create or alter proc sp_BookTickets
 	@travel_date date,
     @seats_booked int
 as begin
-
+	if @seats_booked > 6
+	begin
+		raiserror('Cannot Book More than 6 tickets per transaction.',16,1)
+	if not exists (select 1 from customers where customer_name = @customer_name)
+	begin
+		raiserror('Customer does not exists!',16,1)
+		return
+	end
 	if not exists (select 1 from train_class where train_no = @train_no and status = 'active')
 	begin
 		raiserror('Cannot book tickets for an inactive train.', 16, 1);
@@ -152,19 +186,30 @@ as begin
     insert into bookings (cust_id, train_no, class_id,travel_date, seats_booked, total_cost)
     values (@cust_id, @train_no, @class_id, @travel_date, @seats_booked, @total_cost);
  
-    select 'Ticket booked successfully. Total Cost is ' + cast(@total_cost as varchar) as message, bid as 'bookid' from bookings
+    select 'Ticket booked successfully. Total Cost is ' + cast(@total_cost as varchar) as message, bid as 'bookid' from bookings where bid = (select max(bid) from bookings)
 end;
 
 exec sp_BookTickets 'karthikeya', 12064, 1, '2025-08-14', 5
 
 
 create or alter proc sp_CancelTickets
-	@custid int,
+	@customer_name varchar(20),
 	@bookid int,
 	@seats_cancelled int
 as begin
-
+	if not exists (select 1 from customers where customer_name = @customer_name)
+	begin
+		raiserror('Customer does not exists!',16,1)
+		return
+	end
+	if not exists (select 1 from bookings where bid = @bookid)
+	begin
+		raiserror('Customer does not exists!',16,1)
+		return
+	end
 	declare @seats int
+	declare @custid int
+	select @custid = customer_id from customers where customer_name = @customer_name order by customer_id desc 
     select @seats = seats_booked from bookings
     where cust_id = @custid and bid = @bookid
 
@@ -223,7 +268,7 @@ as begin
 	select 'Tickets Cancelled Successfully. Refunded Amount = ' + cast(@refund_amount as varchar) as message
 end
 
-exec sp_CancelTickets 1,1,1
+exec sp_CancelTickets 'kabali',1,11
 
 
 create or alter proc sp_ViewAllCancellations
@@ -267,7 +312,7 @@ create or alter proc sp_AddTrain
 	@seats_available int,
 	@price decimal(10,2)
 as begin
-	if exists (select 1 from trains where train_no = @train_no)
+	if exists (select 1 from train_class where train_no = @train_no and class_id = @class_id)
 	begin
 		raiserror('Train already exists!',16,1)
 		return
@@ -291,6 +336,84 @@ end
 exec sp_AddTrain 70136, 'Train Express', 'Pakistan', 'India', 4, 10, 300.5
 
 
+
+create or alter procedure sp_ModifyTrain
+    @train_no int,
+    @input int,  -- 1 = train name, 2 = from, 3 = to, 4 = class id, 5 = seats, 6 = price, 7 = status
+    @class_id int = null,
+    @new_value varchar(30) = null,
+    @new_int_value int = null,
+    @new_decimal_value decimal(10,2) = null
+as begin
+    if not exists (select 1 from trains where train_no = @train_no)
+    begin
+        raiserror('Train does not Exists!', 16, 1)
+        return
+    end
+
+    if @input = 1
+    begin
+        update trains set train_name = @new_value where train_no = @train_no
+        select 'Train Name Updated Successfully.' as message
+    end
+    else if @input = 2
+    begin
+        update trains set [from] = @new_value where train_no = @train_no
+        select 'From Station Updated Successfully.' as message
+    end
+    else if @input = 3
+    begin
+        update trains set [to] = @new_value where train_no = @train_no
+        select 'To Station Updated Successfully.' as message
+    end
+    else if @input = 4
+    begin
+        if not exists (select 1 from train_class where train_no = @train_no and class_id = @class_id)
+        begin
+            raiserror('Train-Class Combination Does Not Exists!', 16, 1)
+            return
+        end
+        update train_class set class_id = @new_int_value where train_no = @train_no and class_id = @class_id
+        select 'Class has been Updated Successfully.' as message
+    end
+    else if @input = 5
+    begin
+        if not exists (select 1 from train_class where train_no = @train_no and class_id = @class_id)
+        begin
+            raiserror('Train-Class Combination Does Not Exists!', 16, 1)
+            return
+        end
+        update train_class set seats_available = @new_int_value where train_no = @train_no and class_id = @class_id
+        select 'Seats Available Updated Successfully.' as message
+    end
+    else if @input = 6
+    begin
+        if not exists (select 1 from train_class where train_no = @train_no and class_id = @class_id)
+        begin
+            raiserror('Train-Class Combination Does Not Exists!', 16, 1)
+            return
+        end
+        update train_class set price = @new_decimal_value where train_no = @train_no and class_id = @class_id
+        select 'Price Updated Successfully.' as message
+    end
+	else if @input = 7
+	begin
+		if not exists (select 1 from train_class where train_no = @train_no and status = 'inactive')
+        begin
+            raiserror('Train is already active or does not exist.', 16, 1)
+            return
+        end
+        update train_class set status = 'active' where train_no = @train_no
+        select 'Train marked as active successfully.' as message
+    end
+    else
+    begin
+        raiserror('Invalid Input!', 16, 1)
+    end
+end
+
+
+
 create or alter proc sp_DeleteTrain
     @train_no int
 as begin
@@ -306,3 +429,42 @@ as begin
 end
 
 exec sp_DeleteTrain 18464
+
+
+create or alter proc sp_CurrentBooking
+	@bid int
+as begin
+	select b.bid, c.customer_name, t.train_no, t.train_name, t.[from], t.[to], cl.class_name, b.travel_date, b.booking_date, b.seats_booked, b.total_cost
+    from bookings b
+    join customers c on b.cust_id = c.customer_id
+    join users u on c.user_id = u.userid
+    join trains t on b.train_no = t.train_no
+    join class cl on b.class_id = cl.class_id
+	where bid = @bid
+end
+
+sp_CurrentBooking 1 
+
+create or alter proc sp_ViewCustomerBookings
+	@customer_name varchar(20)
+as begin
+	if not exists (select 1 from customers where customer_name = @customer_name)
+	begin
+		raiserror('Customer does not exists!',16,1)
+		return
+	end
+	select b.bid, u.username, c.customer_name, t.train_no, t.train_name, t.[from], t.[to], cl.class_name, b.travel_date, b.booking_date, b.seats_booked, b.total_cost, 
+        case 
+            when b.is_cancelled = 1 then 'Cancelled'
+            else 'Confirmed'
+        end as BookingStatus
+    from bookings b
+    join customers c on b.cust_id = c.customer_id
+    join users u on c.user_id = u.userid
+    join trains t on b.train_no = t.train_no
+    join class cl on b.class_id = cl.class_id
+	where c.customer_name = @customer_name
+    order by b.booking_date desc;
+end
+
+sp_ViewCustomerBookings 'karthikeya'
