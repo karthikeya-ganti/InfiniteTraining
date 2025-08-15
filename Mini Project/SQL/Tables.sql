@@ -59,3 +59,7 @@ select * from trains
 select * from class
 select * from train_class
 select * from users
+
+
+alter table bookings add status varchar(9) check(status in('active','inactive')) default 'active'
+update bookings set status = 'active'

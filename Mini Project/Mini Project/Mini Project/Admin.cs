@@ -84,7 +84,7 @@ namespace Mini_Project
                 while (dr.Read())
                 {
                     Console.WriteLine($"Booking ID: {dr["bid"]}, Customer Name: {dr["customer_name"]},  booked {dr["train_no"]} - {dr["train_name"]} - {dr["class_name"]}, "
-                                                + $"Travel Date: {dr["travel_date"]}, Seats Booked: {dr["seats_booked"]}, Total Cost: {dr["total_cost"]}");
+                                                + $"Travel Date: {dr["travel_date"]}, Seats Booked: {dr["seats_booked"]}, Total Cost: {dr["total_cost"]}, Booking Status: {dr["BookingStatus"]}");
                 }
                 Console.WriteLine();
                 dr.Close();
@@ -285,22 +285,51 @@ namespace Mini_Project
             try
             {
                 Console.WriteLine();
-                Console.WriteLine("Enter Train To Delete: ");
-                Console.Write("Train No: ");
-                int train_no; while (!int.TryParse(Console.ReadLine(), out train_no)) ;
+                Console.Write("Enter Train No to delete: ");
+                int train_no;
+                while (!int.TryParse(Console.ReadLine(), out train_no)) ;
 
-                cmd = new SqlCommand("sp_DeleteTrain", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                // Check if train has active bookings
+                bool hasBookings = false;
+                cmd = new SqlCommand("select count(*) from bookings where train_no = @train_no and is_cancelled = 0", con);
                 cmd.Parameters.AddWithValue("@train_no", train_no);
-
                 con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                while (dr.Read())
+                int count = (int)cmd.ExecuteScalar();
+                con.Close();
+
+                if (count > 0)
                 {
-                    Console.WriteLine(dr["message"].ToString());
+                    Console.WriteLine("\nTrain has active bookings. Choose an option:");
+                    Console.WriteLine("1. Cancel all bookings and delete the train");
+                    Console.WriteLine("2. Abort deletion");
+                    Console.Write("Enter your choice (1 or 2): ");
+                    int option;
+                    while (!int.TryParse(Console.ReadLine(), out option) || (option != 1 && option != 2)) ;
+
+                    cmd = new SqlCommand("sp_DeleteTrain", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@train_no", train_no);
+                    cmd.Parameters.AddWithValue("@option", option);
+
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Console.WriteLine(dr["message"].ToString());
+                    }
+                    dr.Close();
                 }
-                Console.WriteLine();
-                dr.Close();
+                else
+                {
+                    // No bookings, deactivate silently
+                    cmd = new SqlCommand("sp_DeleteTrain", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@train_no", train_no);
+                    cmd.Parameters.AddWithValue("@option", 0); // 0 means silent deactivate
+
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Train had no bookings and was deactivated successfully.");
+                }
             }
             catch (SqlException se)
             {
@@ -313,5 +342,6 @@ namespace Mini_Project
                     con.Close();
             }
         }
+
     }
 }

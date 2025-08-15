@@ -10,7 +10,7 @@ namespace MiniProject_Testing
         [Test]
         public void AuthenticateAdmin_ValidCredentials()
         {
-            string username = "mario";
+            string username = "mario123";
             string password = "mario@123";
             string role = "admin";
 

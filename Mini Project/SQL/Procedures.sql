@@ -82,6 +82,20 @@ as begin
 		return
 	end
 
+	
+    if len(@phone) != 10 or @phone like '%[^0-9]%'
+    begin
+        raiserror('Invalid phone number. Must be exactly 10 digits.', 16, 1)
+        return
+    end
+
+    if @email not like '_%@_%._%'
+    begin
+        raiserror('Invalid email format.', 16, 1)
+        return
+    end
+
+
 	insert into customers (user_id, customer_name, phone, email, gender, age) values
 	(@userid, @name, @phone, @email, @gender, @age)
 end
@@ -139,6 +153,7 @@ as begin
 	if @seats_booked > 6
 	begin
 		raiserror('Cannot Book More than 6 tickets per transaction.',16,1)
+	end
 	if not exists (select 1 from customers where customer_name = @customer_name)
 	begin
 		raiserror('Customer does not exists!',16,1)
@@ -147,8 +162,16 @@ as begin
 	if not exists (select 1 from train_class where train_no = @train_no and status = 'active')
 	begin
 		raiserror('Cannot book tickets for an inactive train.', 16, 1);
-		return;
+		return
 	end
+
+	
+	if @travel_date < cast(getdate() as date)
+	begin
+		raiserror('Cannot book tickets for a past date.', 16, 1);
+		return
+	end
+
 
     declare @seats int
     select @seats = seats_available from train_class
@@ -157,13 +180,13 @@ as begin
 	if @seats_booked = 0
     begin
         raiserror('Cannot book zero tickets.', 16, 1);
-        return;
+        return
     end
 
     if @seats is null
     begin
         raiserror('Invalid train or class selection.', 16, 1);
-        return;
+        return
     end
 
     if @seats < @seats_booked
@@ -314,7 +337,7 @@ create or alter proc sp_AddTrain
 as begin
 	if exists (select 1 from train_class where train_no = @train_no and class_id = @class_id)
 	begin
-		raiserror('Train already exists!',16,1)
+		raiserror('Train already exists with class!',16,1)
 		return
 	end
 
@@ -324,8 +347,12 @@ as begin
 		return
 	end
 
-	insert into trains (train_no, train_name, [from], [to])
-	values(@train_no, @train_name, @from, @to)
+
+	if not exists (select 1 from trains where train_no = @train_no)
+    begin
+		insert into trains (train_no, train_name, [from], [to])
+		values(@train_no, @train_name, @from, @to)
+	end
 
 	insert into train_class (train_no, class_id, seats_available, price)
     values (@train_no, @class_id, @seats_available, @price)
@@ -412,29 +439,60 @@ as begin
     end
 end
 
-
+select * from bookings
 
 create or alter proc sp_DeleteTrain
-    @train_no int
-as begin
-    if not exists (select 1 from train_class where train_no = @train_no and status = 'active')
+    @train_no int,
+    @option int -- 1 = cancel bookings and delete, 2 = abort if bookings exist
+as
+begin
+    if not exists (select 1 from trains where train_no = @train_no)
     begin
-        raiserror('Train not found or already inactive.', 16, 1);
-        return;
+        raiserror('Train does not exist.', 16, 1)
+        return
     end
- 
-    update train_class set status = 'inactive' where train_no = @train_no;
- 
-    select 'Train marked as inactive successfully.' as message
+
+    if exists (select 1 from bookings where train_no = @train_no and is_cancelled = 0)
+    begin
+        if @option = 1
+        begin
+            update bookings
+            set is_cancelled = 1
+            where train_no = @train_no and is_cancelled = 0
+
+            update train_class
+            set status = 'inactive'
+            where train_no = @train_no
+
+            select 'All Bookings Cancelled and Train marked as Inactive.' as message
+        end
+        else if @option = 2
+        begin
+            raiserror('Train has Active Bookings. Deletion Aborted.', 16, 1)
+            return
+        end
+        else
+        begin
+            raiserror('Invalid Option. Use 1 to Cancel Bookings and Delete Train, or 2 to Abort.', 16, 1)
+            return
+        end
+    end
+    else
+    begin
+        update train_class
+        set status = 'inactive'
+        where train_no = @train_no
+    end
 end
 
-exec sp_DeleteTrain 18464
+
+exec sp_DeleteTrain 18066, 1
 
 
 create or alter proc sp_CurrentBooking
 	@bid int
 as begin
-	select b.bid, c.customer_name, t.train_no, t.train_name, t.[from], t.[to], cl.class_name, b.travel_date, b.booking_date, b.seats_booked, b.total_cost
+	select b.bid, c.customer_name, t.train_no, t.train_name, t.[from], t.[to], cl.class_name, b.travel_date, b.booking_date, b.seats_booked, b.total_cost, b.status
     from bookings b
     join customers c on b.cust_id = c.customer_id
     join users u on c.user_id = u.userid

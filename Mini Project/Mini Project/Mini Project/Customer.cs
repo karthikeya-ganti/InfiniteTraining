@@ -178,7 +178,7 @@ namespace Mini_Project
                 while (dr.Read())
                 {
                     Console.WriteLine($"Booking ID: {dr["bid"]}, Customer Name: {dr["customer_name"]},  booked {dr["train_no"]} - {dr["train_name"]} - {dr["class_name"]}, "
-                                                + $"Travel Date: {dr["travel_date"]}, Seats Booked: {dr["seats_booked"]}, Total Cost: {dr["total_cost"]}");
+                                                + $"Travel Date: {dr["travel_date"]}, Seats Booked: {dr["seats_booked"]}, Total Cost: {dr["total_cost"]}, Status: {dr["b.status"]}");
                 }
                 dr.Close();
             }
@@ -250,7 +250,7 @@ namespace Mini_Project
                 while (dr.Read())
                 {
                     Console.WriteLine($"Booking ID: {dr["bid"]}, Customer Name: {dr["customer_name"]},  booked {dr["train_no"]} - {dr["train_name"]} - {dr["class_name"]}, "
-                                                + $"Travel Date: {dr["travel_date"]}, Seats Booked: {dr["seats_booked"]}, Total Cost: {dr["total_cost"]}");
+                                                + $"Travel Date: {dr["travel_date"]}, Seats Booked: {dr["seats_booked"]}, Total Cost: {dr["total_cost"]}, Booking Status: {dr["BookingStatus"]}");
                 }
                 dr.Close();
             }
