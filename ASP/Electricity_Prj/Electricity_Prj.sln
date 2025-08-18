@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.36128.20
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Electricity_Prj", "Electricity_Prj\Electricity_Prj.csproj", "{6BE22B74-0FD8-4DBF-BCD0-63308B2DB2B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricityDB", "ElectricityDB\ElectricityDB.csproj", "{D14E635C-FD19-4373-A550-AA78DFF4D835}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BE22B74-0FD8-4DBF-BCD0-63308B2DB2B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BE22B74-0FD8-4DBF-BCD0-63308B2DB2B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BE22B74-0FD8-4DBF-BCD0-63308B2DB2B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BE22B74-0FD8-4DBF-BCD0-63308B2DB2B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D14E635C-FD19-4373-A550-AA78DFF4D835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D14E635C-FD19-4373-A550-AA78DFF4D835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D14E635C-FD19-4373-A550-AA78DFF4D835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D14E635C-FD19-4373-A550-AA78DFF4D835}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20505C0A-1930-429E-B892-B0668127C001}
+	EndGlobalSection
+EndGlobal

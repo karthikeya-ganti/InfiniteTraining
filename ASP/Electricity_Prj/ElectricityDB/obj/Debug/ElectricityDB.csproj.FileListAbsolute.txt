@@ -1,0 +1,6 @@
+C:\Users\karthikeyag\Infinite_Training\ASP\Electricity_Prj\ElectricityDB\bin\Debug\ElectricityDB.dll
+C:\Users\karthikeyag\Infinite_Training\ASP\Electricity_Prj\ElectricityDB\bin\Debug\ElectricityDB.pdb
+C:\Users\karthikeyag\Infinite_Training\ASP\Electricity_Prj\ElectricityDB\obj\Debug\ElectricityDB.csproj.CoreCompileInputs.cache
+C:\Users\karthikeyag\Infinite_Training\ASP\Electricity_Prj\ElectricityDB\obj\Debug\ElectricityDB.dll
+C:\Users\karthikeyag\Infinite_Training\ASP\Electricity_Prj\ElectricityDB\obj\Debug\ElectricityDB.pdb
+C:\Users\karthikeyag\Infinite_Training\ASP\Electricity_Prj\ElectricityDB\obj\Debug\ElectricityDB.csproj.AssemblyReference.cache
