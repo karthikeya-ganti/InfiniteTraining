@@ -84,7 +84,7 @@ namespace Electricity_Prj
                     BillValidator bv = new BillValidator();
                     string validator;
                     validator = bv.ValidateUnitsConsumed(unitsconsumed);
-
+                    bool saved = false;
                     if (validator != "Valid")
                     {
                         error.Text += $"<p>Bill {i}: {validator}<p>";
@@ -101,13 +101,19 @@ namespace Electricity_Prj
                         ElectricityBoard eb = new ElectricityBoard();
                         eb.CalculateBill(bill);
                         eb.AddBill(bill);
+                        saved = true;
                     }
                     catch (FormatException fe)
                     {
                         error.Text += $"<p>Bill {i} Error: {fe.Message}</p>";
                         continue;
                     }
-                    status.Text += $"<p>Saved Bill {i}</p>";
+                    if(saved == true)
+                    {
+                        btnSave.Visible = false;
+                        bills.Visible = false;
+                        status.Text += $"<p>Saved Bill {i}</p>";
+                    }
                 }
             }
         }
