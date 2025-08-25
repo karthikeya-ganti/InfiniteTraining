@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Code_Challenge_9.Models.Movie>
+
+<h2>Movies Released in @Request.QueryString["year"]</h2>
+
+@if (!Model.Any())
+{
+    <p>No movies found for this year.</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Movie Name</th>
+            <th>Director Name</th>
+            <th>Date of Release</th>
+        </tr>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Moviename</td>
+                <td>@movie.Directorname</td>
+                <td>@movie.DateofRelease.ToShortDateString()</td>
+            </tr>
+        }
+    </table>
+}

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Code_Challenge_9.Models.Movie>
+
+@{ ViewBag.Title = "Movies List"; }
+
+<h2>Movies List</h2>
+
+<p>
+    @Html.ActionLink("Create New Movie", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>Mid</th>
+        <th>Movie Name</th>
+        <th>Director Name</th>
+        <th>Date of Release</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.Mid</td>
+    <td>@item.Moviename</td>
+    <td>@item.Directorname</td>
+    <td>@item.DateofRelease.ToShortDateString()</td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Mid }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Mid })
+    </td>
+</tr>}
+</table>
+
+<h3>Search by Year</h3>
+@using (Html.BeginForm("ByYear", "Movies", FormMethod.Get))
+{
+<input type="number" name="year" placeholder="Enter Year" required />
+                <input type="submit" value="Search" />}
+
+<h3>Search by Director</h3>
+@using (Html.BeginForm("ByDirector", "Movies", FormMethod.Get))
+{
+<input type="text" name="name" placeholder="Enter Director Name" required />
+                <input type="submit" value="Search" />}

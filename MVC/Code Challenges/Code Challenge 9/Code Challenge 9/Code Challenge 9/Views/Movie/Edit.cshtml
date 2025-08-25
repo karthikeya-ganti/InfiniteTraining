@@ -1,0 +1,31 @@
+﻿@model Code_Challenge_9.Models.Movie
+
+@{
+    ViewBag.Title = "Edit Movie";
+}
+
+<h2>Edit Movie</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Mid)
+
+    <div>
+        <label>Movie Name</label><br />
+        @Html.TextBoxFor(model => model.Moviename)
+    </div>
+
+    <div>
+        <label>Director Name</label><br />
+        @Html.TextBoxFor(model => model.Directorname)
+    </div>
+
+    <div>
+        <label>Date of Release</label><br />
+        @Html.TextBoxFor(model => model.DateofRelease, "{0:yyyy-MM-dd}", new { type = "date" })
+    </div>
+
+    <br />
+    <input type="submit" value="Save" />
+}

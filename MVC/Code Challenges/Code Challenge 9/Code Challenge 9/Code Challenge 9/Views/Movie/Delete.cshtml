@@ -1,0 +1,29 @@
+﻿@model Code_Challenge_9.Models.Movie
+
+@{
+    ViewBag.Title = "Delete Movie";
+}
+
+<h2>Delete Movie</h2>
+
+<div>
+    <h4>Confirm to Delete Movie?</h4>
+    <dl class="dl-horizontal">
+        <dt>Movie Name</dt>
+        <dd>@Model.Moviename</dd>
+        <dt>Director Name</dt>
+        <dd>@Model.Directorname</dd>
+        <dt>Date of Release</dt>
+        <dd>@Model.DateofRelease.ToShortDateString()</dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+

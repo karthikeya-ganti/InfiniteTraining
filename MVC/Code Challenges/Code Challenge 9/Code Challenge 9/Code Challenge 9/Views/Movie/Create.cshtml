@@ -1,0 +1,25 @@
+﻿@model Code_Challenge_9.Models.Movie
+
+@{ ViewBag.Title = "Create Movie"; }
+
+<h2>Create Movie</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+         <div class="form-group">
+             @Html.LabelFor(model => model.Moviename)
+             @Html.TextBoxFor(model => model.Moviename, new { @class = "form-control" })
+         </div>
+         <div class="form-group">
+             @Html.LabelFor(model => model.Directorname)
+             @Html.TextBoxFor(model => model.Directorname, new { @class = "form-control" })
+         </div>
+         <div class="form-group">
+             @Html.LabelFor(model => model.DateofRelease)
+             @Html.TextBoxFor(model => model.DateofRelease, new { @class = "form-control", type = "date" })
+         </div>
+         <input type="submit" value="Create" class="btn btn-primary" />
+     </div>
+}
